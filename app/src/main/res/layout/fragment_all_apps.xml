@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".view.AllApps">
+
+    <EditText
+        android:id="@+id/et_search_app"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:cursorVisible="false"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Search"
+        android:inputType="textVisiblePassword|textNoSuggestions"
+        android:paddingTop="50dp"
+        android:paddingBottom="50dp"
+        android:singleLine="true"
+        android:textColor="@android:color/white"
+        android:textColorHint="#40FFFFFF" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        android:padding="4dp"
+        android:id="@+id/rv_app_list" />
+</LinearLayout>
+
