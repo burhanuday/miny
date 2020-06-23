@@ -19,6 +19,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.appallure.miny.R;
+import com.appallure.miny.inter.AppListOnClickListener;
 import com.appallure.miny.model.App;
 
 import java.util.ArrayList;
@@ -27,12 +28,13 @@ import java.util.List;
 public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppListViewHolder> implements Filterable {
     private List<App> appsList;
     private List<App> allApps;
-    private Context mContext;
+    private AppListOnClickListener appListOnClickListener;
 
-    public AppListAdapter(List<App> appsList, Context context){
+
+    public AppListAdapter(List<App> appsList, AppListOnClickListener appListOnClickListener){
         this.appsList = appsList;
         this.allApps = new ArrayList<>(appsList);
-        this.mContext = context;
+        this.appListOnClickListener = appListOnClickListener;
     }
 
     class AppListViewHolder extends RecyclerView.ViewHolder {
@@ -60,7 +62,7 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppListV
         holder.appContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                launchApp(item.getPackageName());
+                appListOnClickListener.onClick(item.getPackageName(), item.getAppName());
             }
         });
     }
@@ -68,18 +70,6 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppListV
     @Override
     public int getItemCount() {
         return appsList.size();
-    }
-
-    protected void launchApp(String packageName) {
-        Intent mIntent = mContext.getPackageManager().getLaunchIntentForPackage(packageName);
-        if (mIntent != null) {
-            try {
-                mContext.startActivity(mIntent);
-            } catch (ActivityNotFoundException err) {
-                Toast t = Toast.makeText(mContext.getApplicationContext(), "App was not found!", Toast.LENGTH_SHORT);
-                t.show();
-            }
-        }
     }
 
     @Override
@@ -106,7 +96,7 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppListV
             results.values = filteredAppsList;
 
             if(filteredAppsList.size() == 1){
-                launchApp(filteredAppsList.get(0).getPackageName());
+                appListOnClickListener.onClick(filteredAppsList.get(0).getPackageName(), filteredAppsList.get(0).getAppName());
             }
             return results;
         }

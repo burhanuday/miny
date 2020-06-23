@@ -24,8 +24,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.appallure.miny.R;
+import com.appallure.miny.inter.AppListOnClickListener;
 import com.appallure.miny.model.App;
 import com.appallure.miny.util.AppListAdapter;
+import com.appallure.miny.util.AppListUtil;
 import com.appallure.miny.util.SortAppsByName;
 
 import java.util.ArrayList;
@@ -33,26 +35,17 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class AllApps extends Fragment {
+public class AllApps extends Fragment implements AppListOnClickListener {
     private static final String TAG = "AllApps";
-    EditText searchInput;
-
+    private EditText searchInput;
     private AppListAdapter appListAdapter;
-    private String searchQuery;
 
-    public AllApps() {
-        // Required empty public constructor
-    }
+    public AllApps() {}
 
     @Override
     public void onResume() {
         searchInput.setText("");
         super.onResume();
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -66,7 +59,7 @@ public class AllApps extends Fragment {
             getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 
             InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);;
-            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,InputMethodManager.HIDE_IMPLICIT_ONLY);
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
             imm.showSoftInput(searchInput, InputMethodManager.SHOW_FORCED);
             searchInput.requestFocus();
         }
@@ -74,13 +67,12 @@ public class AllApps extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_all_apps, container, false);
 
         searchInput = view.findViewById(R.id.et_search_app);
 
-        List<App> appsList = getAppsList();
+        List<App> appsList = AppListUtil.getAppsList(getContext());
         Collections.sort(appsList, new SortAppsByName());
 
         RecyclerView appsRecyclerView = view.findViewById(R.id.rv_app_list);
@@ -89,14 +81,12 @@ public class AllApps extends Fragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         appsRecyclerView.setLayoutManager(layoutManager);
 
-        appListAdapter = new AppListAdapter(appsList, getContext());
+        appListAdapter = new AppListAdapter(appsList, this);
         appsRecyclerView.setAdapter(appListAdapter);
 
         searchInput.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -110,33 +100,26 @@ public class AllApps extends Fragment {
             }
 
             @Override
-            public void afterTextChanged(Editable s) {
-
-            }
+            public void afterTextChanged(Editable s) {}
         });
 
         return view;
     }
 
-    List<App> getAppsList() {
-        final PackageManager pm = getContext().getPackageManager();
-
-        List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
-        List<App> filteredPackages = new ArrayList<>();
-
-        for (ApplicationInfo packageInfo : packages) {
-            if(pm.getLaunchIntentForPackage(packageInfo.packageName) != null &&
-                    !packageInfo.loadLabel(pm).toString().equalsIgnoreCase(getContext().getResources().getString(R.string.app_name))){
-                filteredPackages.add(new App(packageInfo.loadLabel(pm).toString(),
-                        pm.getLaunchIntentForPackage(packageInfo.packageName), packageInfo.packageName));
-
-                Log.i("installedApps",packageInfo.loadLabel(pm).toString() + " " + packageInfo.toString());
+    protected void launchApp(String packageName) {
+        Intent mIntent = getContext().getPackageManager().getLaunchIntentForPackage(packageName);
+        if (mIntent != null) {
+            try {
+                getContext().startActivity(mIntent);
+            } catch (ActivityNotFoundException err) {
+                Toast t = Toast.makeText(getContext().getApplicationContext(), "App was not found!", Toast.LENGTH_SHORT);
+                t.show();
             }
         }
-
-        Log.i("list length", String.valueOf(filteredPackages.size()));
-
-        return filteredPackages;
     }
 
+    @Override
+    public void onClick(String packageName, String appName) {
+        launchApp(packageName);
+    }
 }
