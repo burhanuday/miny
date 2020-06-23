@@ -3,19 +3,23 @@ package com.appallure.miny.view;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.gesture.Gesture;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.appallure.miny.R;
+import com.appallure.miny.util.SimpleGestureListener;
 
 public class Home extends Fragment {
 
@@ -46,6 +50,15 @@ public class Home extends Fragment {
         shortcut4.setOnLongClickListener(longClickListener);
 
         setUpShortcuts();
+
+        final GestureDetector gestureDetector = new GestureDetector(getContext(), new SimpleGestureListener());
+
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return gestureDetector.onTouchEvent(event);
+            }
+        });
 
         return view;
     }
