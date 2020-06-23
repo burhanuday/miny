@@ -18,7 +18,7 @@
         android:layout_marginRight="15dp"
         android:alpha="0.4"
         android:src="@drawable/ic_baseline_settings_24"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

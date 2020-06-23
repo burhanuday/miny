@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,8 @@ public class Home extends Fragment {
     String shortcut2PackageName, shortcut2AppName;
     String shortcut3PackageName, shortcut3AppName;
     String shortcut4PackageName, shortcut4AppName;
+
+    ImageView settingsButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,6 +51,15 @@ public class Home extends Fragment {
         shortcut2.setOnLongClickListener(longClickListener);
         shortcut3.setOnLongClickListener(longClickListener);
         shortcut4.setOnLongClickListener(longClickListener);
+
+        settingsButton = view.findViewById(R.id.iv_settings);
+
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), SettingsActivity.class));
+            }
+        });
 
         setUpShortcuts();
 

@@ -1,0 +1,28 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="30dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="settings" />
+
+    <TextView
+        android:id="@+id/tv_set_default_launcher"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="set default launcher"
+        style="@style/textViewStyleSmall" />
+
+    <TextView
+        android:id="@+id/tv_enable_double_tap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="enable double tap to sleep on home"
+        style="@style/textViewStyleSmall" />
+</LinearLayout>

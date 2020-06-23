@@ -13,7 +13,10 @@
         android:stateNotNeeded="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.AppPicker"></activity>
+        <activity
+            android:name=".view.SettingsActivity"
+            android:label="@string/title_activity_settings"></activity>
+        <activity android:name=".view.AppPicker" />
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -35,6 +38,7 @@
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />
             </intent-filter>
+
             <meta-data
                 android:name="android.accessibilityservice"
                 android:resource="@xml/screen_off_service" />
