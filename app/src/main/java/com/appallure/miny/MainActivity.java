@@ -18,7 +18,7 @@ import com.appallure.miny.util.ViewPagerAdapter;
 
 
 public class MainActivity extends AppCompatActivity {
-    ViewPager viewPager;
+    public ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

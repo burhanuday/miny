@@ -11,6 +11,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -23,6 +24,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.appallure.miny.MainActivity;
 import com.appallure.miny.R;
 import com.appallure.miny.inter.AppListOnClickListener;
 import com.appallure.miny.model.App;
@@ -111,6 +113,8 @@ public class AllApps extends Fragment implements AppListOnClickListener {
         if (mIntent != null) {
             try {
                 getContext().startActivity(mIntent);
+                MainActivity mainActivity = (MainActivity) getActivity();
+                mainActivity.viewPager.setCurrentItem(0, true);
             } catch (ActivityNotFoundException err) {
                 Toast t = Toast.makeText(getContext().getApplicationContext(), "App was not found!", Toast.LENGTH_SHORT);
                 t.show();
