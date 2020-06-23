@@ -47,6 +47,7 @@ public class AllApps extends Fragment implements AppListOnClickListener {
     @Override
     public void onResume() {
         searchInput.setText("");
+        appListAdapter.notifyDataSetChanged();
         super.onResume();
     }
 

@@ -43,6 +43,14 @@
                 android:name="android.accessibilityservice"
                 android:resource="@xml/screen_off_service" />
         </service>
+
+        <receiver android:name=".util.PackageIntentListener">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_INSTALL" />
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <data android:scheme="package"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

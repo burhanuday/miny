@@ -19,6 +19,22 @@ public class AppListUtil {
         filteredPackages.clear();
     }
 
+    public static void refreshAppList(Context context) {
+        final PackageManager pm = context.getPackageManager();
+
+        List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
+
+        for (ApplicationInfo packageInfo : packages) {
+            if(pm.getLaunchIntentForPackage(packageInfo.packageName) != null &&
+                    !packageInfo.loadLabel(pm).toString().equalsIgnoreCase(context.getResources().getString(R.string.app_name))){
+                filteredPackages.add(new App(packageInfo.loadLabel(pm).toString(),
+                        pm.getLaunchIntentForPackage(packageInfo.packageName), packageInfo.packageName));
+
+                Log.i("installedApps",packageInfo.loadLabel(pm).toString() + " " + packageInfo.toString());
+            }
+        }
+    }
+
     public static List<App> getAppsList(Context context) {
         if(filteredPackages.size() != 0){
             return  filteredPackages;
