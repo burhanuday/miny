@@ -12,9 +12,9 @@
         android:id="@+id/tv_app_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:alpha="0.7"
+        android:alpha="0.85"
         android:text="TextView"
-        android:textColor="@color/red"
+        android:textColor="#FF4500"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

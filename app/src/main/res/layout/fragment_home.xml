@@ -6,9 +6,24 @@
     android:layout_height="match_parent"
     android:paddingLeft="30dp"
     android:paddingTop="25dp"
+    android:paddingRight="30dp"
     tools:context=".view.Home">
 
+    <ImageView
+        android:id="@+id/iv_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="15dp"
+        android:alpha="0.4"
+        android:src="@drawable/ic_baseline_settings_24"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <DigitalClock
+        android:id="@+id/digitalClock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
