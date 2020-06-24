@@ -37,8 +37,10 @@ public class SimpleGestureListener extends GestureDetector.SimpleOnGestureListen
             if(ScreenOffService.instance != null){
                 ScreenOffService.instance.turnScreenOff();
             } else {
-                Toast.makeText(context, "Enable accessibility service miny from accessibility menu", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Enable accessibility service miny from accessibility menu", Toast.LENGTH_LONG).show();
             }
+        }else {
+            Toast.makeText(context, "Double tap to screen off is only available for Android P and above", Toast.LENGTH_LONG).show();
         }
         return true;
     }
