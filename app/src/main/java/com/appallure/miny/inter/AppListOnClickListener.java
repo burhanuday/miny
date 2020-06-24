@@ -1,5 +1,6 @@
 package com.appallure.miny.inter;
 
 public interface AppListOnClickListener {
-    public void onClick(String packageName, String appName);
+    void onClick(String packageName, String appName);
+    void onLongClick(String packageName, String appName);
 }

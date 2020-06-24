@@ -64,4 +64,9 @@ public class AppPicker extends AppCompatActivity implements AppListOnClickListen
         setResult(2, goBack);
         finish();
     }
+
+    @Override
+    public void onLongClick(String packageName, String appName) {
+        // do nothing
+    }
 }

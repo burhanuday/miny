@@ -65,6 +65,13 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppListV
                 appListOnClickListener.onClick(item.getPackageName(), item.getAppName());
             }
         });
+        holder.appContainer.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                appListOnClickListener.onLongClick(item.getPackageName(), item.getAppName());
+                return true;
+            }
+        });
     }
 
     @Override
