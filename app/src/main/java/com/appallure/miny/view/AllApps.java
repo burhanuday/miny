@@ -1,5 +1,6 @@
 package com.appallure.miny.view;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -11,6 +12,7 @@ import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,6 +33,7 @@ import android.widget.Toast;
 import com.appallure.miny.MainActivity;
 import com.appallure.miny.R;
 import com.appallure.miny.inter.AppListOnClickListener;
+import com.appallure.miny.inter.PageChangeListener;
 import com.appallure.miny.model.App;
 import com.appallure.miny.util.AppListAdapter;
 import com.appallure.miny.util.AppListUtil;
@@ -41,7 +44,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class AllApps extends Fragment implements AppListOnClickListener {
+public class AllApps extends Fragment implements AppListOnClickListener, PageChangeListener {
     private static final String TAG = "AllApps";
     private EditText searchInput;
     private AppListAdapter appListAdapter;
@@ -49,29 +52,18 @@ public class AllApps extends Fragment implements AppListOnClickListener {
     public AllApps() {}
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        MainActivity mainActivity = (MainActivity)getActivity();
+        mainActivity.pageChangeListener = this;
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     public void onResume() {
         searchInput.setText("");
         appListAdapter.notifyDataSetChanged();
         super.onResume();
     }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-
-        Log.i("pageChanged", String.valueOf(isVisibleToUser));
-        if (isVisibleToUser && isResumed()) {
-            Log.i("pageChanged", "resume method called");
-            searchInput.setText("");
-            getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-
-            InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);;
-            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
-            imm.showSoftInput(searchInput, InputMethodManager.SHOW_FORCED);
-            searchInput.requestFocus();
-        }
-    }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -151,5 +143,28 @@ public class AllApps extends Fragment implements AppListOnClickListener {
             }
         });
         alertDialogBuilder.show();
+    }
+
+    @Override
+    public void onPageChanged(int position) {
+        if(position == 1){
+            searchInput.setText("");
+            getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
+            InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);;
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+            imm.showSoftInput(searchInput, InputMethodManager.SHOW_FORCED);
+            searchInput.requestFocus();
+        }else if (position == 0){
+            // hide the keyboard
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+            //Find the currently focused view, so we can grab the correct window token from it.
+            View view = getActivity().getCurrentFocus();
+            //If no view currently has focus, create a new one, just so we can grab a window token from it
+            if (view == null) {
+                view = new View(getActivity());
+            }
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 }

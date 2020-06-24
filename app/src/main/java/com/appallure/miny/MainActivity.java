@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.appallure.miny.inter.PageChangeListener;
 import com.appallure.miny.util.PackageIntentListener;
 import com.appallure.miny.util.ViewPagerAdapter;
 
@@ -23,6 +24,7 @@ import com.appallure.miny.util.ViewPagerAdapter;
 public class MainActivity extends AppCompatActivity {
     public ViewPager viewPager;
     private PackageIntentListener packageIntentListener;
+    public PageChangeListener pageChangeListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +36,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_fullscreen);
 
         viewPager = findViewById(R.id.viewpager);
-        viewPager.setAdapter(new ViewPagerAdapter((getSupportFragmentManager())));
+        viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
+        viewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
+            @Override
+            public void onPageSelected(int position) {
+                Log.i("pageChanged", "page selected" + String.valueOf(position));
+                pageChangeListener.onPageChanged(position);
+                super.onPageSelected(position);
+            }
+        });
 
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Intent.ACTION_PACKAGE_ADDED);
