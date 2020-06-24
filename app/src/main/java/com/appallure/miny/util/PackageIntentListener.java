@@ -14,8 +14,6 @@ public class PackageIntentListener extends BroadcastReceiver {
 
     @SuppressLint("UnsafeProtectedBroadcastReceiver")
     @Override public void onReceive(Context context, Intent intent) {
-        Log.i("packagesChanged", "I am here");
-        Toast.makeText(context, "Package stuff", Toast.LENGTH_LONG).show();
         AppListUtil.refreshAppList(context);
     }
 
