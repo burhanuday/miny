@@ -38,7 +38,9 @@ public class Home extends Fragment {
     String shortcut3PackageName, shortcut3AppName;
     String shortcut4PackageName, shortcut4AppName;
 
-    ImageView settingsButton, refresh;
+    ImageView settingsButton, refresh, swipe;
+
+    private static Home instance;
 
     @Override
     public void onResume() {
@@ -46,10 +48,16 @@ public class Home extends Fragment {
         super.onResume();
     }
 
+    public static Home getInstance() {
+        return instance;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        this.instance = this;
 
         shortcut1 = view.findViewById(R.id.shortcut1);
         shortcut2 = view.findViewById(R.id.shortcut2);
@@ -58,6 +66,7 @@ public class Home extends Fragment {
         setDefaultLauncher = view.findViewById(R.id.tv_set_default_launcher);
         settingsButton = view.findViewById(R.id.iv_settings);
         refresh = view.findViewById(R.id.iv_refresh);
+        swipe = view.findViewById(R.id.iv_swipe);
 
         shortcut1.setOnClickListener(clickListener);
         shortcut2.setOnClickListener(clickListener);
@@ -84,6 +93,13 @@ public class Home extends Fragment {
                 setUpShortcuts();
                 determineSetDefaultLauncher();
                 AppListUtil.refreshAppList(getContext());
+            }
+        });
+
+        swipe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Swipe left to see all apps", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -200,7 +216,7 @@ public class Home extends Fragment {
         return false;
     }
 
-    private void setUpShortcuts(){
+    public void setUpShortcuts(){
         SharedPreferences sharedPreferences = getContext().getSharedPreferences(getContext().getPackageName(), getContext().MODE_PRIVATE);
 
         shortcut1PackageName = sharedPreferences.getString("shortcut1PackageName", null);

@@ -25,12 +25,12 @@ public class ScreenOffService extends AccessibilityService {
 
     @Override
     protected void onServiceConnected() {
-        Log.i("accser", "connected");
         instance = this;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.P)
     public void turnScreenOff() {
-        performGlobalAction(GLOBAL_ACTION_LOCK_SCREEN);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            performGlobalAction(GLOBAL_ACTION_LOCK_SCREEN);
+        }
     }
 }

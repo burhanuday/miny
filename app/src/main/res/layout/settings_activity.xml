@@ -25,4 +25,35 @@
         android:layout_marginBottom="32dp"
         android:text="enable double tap to sleep on home"
         style="@style/textViewStyleSmall" />
+
+    <TextView
+        android:id="@+id/tv_select_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="select shortcut 1"
+        style="@style/textViewStyleSmall" />
+    <TextView
+        android:id="@+id/tv_select_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="select shortcut 2"
+        style="@style/textViewStyleSmall" />
+    <TextView
+        android:id="@+id/tv_select_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="select shortcut 3"
+        style="@style/textViewStyleSmall" />
+    <TextView
+        android:id="@+id/tv_select_4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="select shortcut 4"
+        style="@style/textViewStyleSmall" />
+
+
 </LinearLayout>
