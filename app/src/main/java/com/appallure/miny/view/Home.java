@@ -36,6 +36,13 @@ public class Home extends Fragment {
     ImageView settingsButton;
 
     @Override
+    public void onResume() {
+        setUpShortcuts();
+        determineSetDefaultLauncher();
+        super.onResume();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
@@ -64,9 +71,6 @@ public class Home extends Fragment {
                 startActivity(new Intent(getActivity(), SettingsActivity.class));
             }
         });
-
-        setUpShortcuts();
-        determineSetDefaultLauncher();
 
         final GestureDetector gestureDetector = new GestureDetector(getContext(), new SimpleGestureListener(getContext()));
 
@@ -174,6 +178,7 @@ public class Home extends Fragment {
 
     private void setUpShortcuts(){
         SharedPreferences sharedPreferences = getContext().getSharedPreferences(getContext().getPackageName(), getContext().MODE_PRIVATE);
+
         shortcut1PackageName = sharedPreferences.getString("shortcut1PackageName", null);
         shortcut2PackageName = sharedPreferences.getString("shortcut2PackageName", null);
         shortcut3PackageName = sharedPreferences.getString("shortcut3PackageName", null);
