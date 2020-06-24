@@ -17,14 +17,20 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.appallure.miny.inter.PageChangeListener;
+import com.appallure.miny.util.AppListUtil;
 import com.appallure.miny.util.PackageIntentListener;
 import com.appallure.miny.util.ViewPagerAdapter;
 
 
 public class MainActivity extends AppCompatActivity {
     public ViewPager viewPager;
-    private PackageIntentListener packageIntentListener;
     public PageChangeListener pageChangeListener;
+
+    @Override
+    protected void onResume() {
+        AppListUtil.refreshAppList(this);
+        super.onResume();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
