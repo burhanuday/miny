@@ -48,6 +48,7 @@ public class AllApps extends Fragment implements AppListOnClickListener, PageCha
     private static final String TAG = "AllApps";
     private EditText searchInput;
     private AppListAdapter appListAdapter;
+    //private View view;
 
     public AllApps() {}
 
@@ -68,7 +69,7 @@ public class AllApps extends Fragment implements AppListOnClickListener, PageCha
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_all_apps, container, false);
-
+        //this.view = view;
         searchInput = view.findViewById(R.id.et_search_app);
 
         List<App> appsList = AppListUtil.getAppsList(getContext());
@@ -147,7 +148,9 @@ public class AllApps extends Fragment implements AppListOnClickListener, PageCha
 
     @Override
     public void onPageChanged(int position) {
+        Log.i("pageChanged", "Current position" + String.valueOf(position));
         if(position == 1){
+            Log.i("pageChanged", "Keyboard show");
             searchInput.setText("");
             getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 
@@ -156,15 +159,24 @@ public class AllApps extends Fragment implements AppListOnClickListener, PageCha
             imm.showSoftInput(searchInput, InputMethodManager.SHOW_FORCED);
             searchInput.requestFocus();
         }else if (position == 0){
+            Log.i("pageChanged", "Keyboard hide");
             // hide the keyboard
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
             //Find the currently focused view, so we can grab the correct window token from it.
             View view = getActivity().getCurrentFocus();
             //If no view currently has focus, create a new one, just so we can grab a window token from it
+            if(view != null){
+                view.clearFocus();
+            }
             if (view == null) {
                 view = new View(getActivity());
+                view.clearFocus();
             }
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+
+
+            //InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
+            //imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
 }
