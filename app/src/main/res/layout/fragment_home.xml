@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="30dp"
-    android:paddingTop="25dp"
-    android:paddingRight="30dp"
+    android:paddingLeft="15dp"
+    android:paddingTop="5dp"
+    android:paddingRight="15dp"
     tools:context=".view.Home">
 
     <ImageView
@@ -21,6 +21,16 @@
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_set_default_launcher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/set_default_launcher"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@+id/digitalClock"
+        app:layout_constraintTop_toBottomOf="@+id/digitalClock" />
 
     <DigitalClock
         android:id="@+id/digitalClock"

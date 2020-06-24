@@ -3,12 +3,15 @@ package com.appallure.miny.view;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.gesture.Gesture;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.provider.Settings;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -24,7 +27,7 @@ import com.appallure.miny.util.SimpleGestureListener;
 
 public class Home extends Fragment {
 
-    TextView shortcut1, shortcut2, shortcut3, shortcut4;
+    TextView shortcut1, shortcut2, shortcut3, shortcut4, setDefaultLauncher;
     String shortcut1PackageName, shortcut1AppName;
     String shortcut2PackageName, shortcut2AppName;
     String shortcut3PackageName, shortcut3AppName;
@@ -41,6 +44,7 @@ public class Home extends Fragment {
         shortcut2 = view.findViewById(R.id.shortcut2);
         shortcut3 = view.findViewById(R.id.shortcut3);
         shortcut4 = view.findViewById(R.id.shortcut4);
+        setDefaultLauncher = view.findViewById(R.id.tv_set_default_launcher);
 
         shortcut1.setOnClickListener(clickListener);
         shortcut2.setOnClickListener(clickListener);
@@ -62,6 +66,7 @@ public class Home extends Fragment {
         });
 
         setUpShortcuts();
+        determineSetDefaultLauncher();
 
         final GestureDetector gestureDetector = new GestureDetector(getContext(), new SimpleGestureListener(getContext()));
 
@@ -191,5 +196,28 @@ public class Home extends Fragment {
         if(shortcut4AppName != null){
             shortcut4.setText(shortcut4AppName);
         }
+    }
+
+    public void determineSetDefaultLauncher(){
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        ResolveInfo resolveInfo = getContext().getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
+        String currentLauncherName= resolveInfo.activityInfo.packageName;
+        if(!currentLauncherName.equals("com.appallure.miny")){
+            setDefaultLauncher.setVisibility(View.VISIBLE);
+        }
+        setDefaultLauncher.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                    final Intent intent = new Intent(Settings.ACTION_HOME_SETTINGS);
+                    startActivity(intent);
+                }
+                else {
+                    final Intent intent = new Intent(Settings.ACTION_SETTINGS);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 }
