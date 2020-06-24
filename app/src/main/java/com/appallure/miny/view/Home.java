@@ -63,7 +63,7 @@ public class Home extends Fragment {
 
         setUpShortcuts();
 
-        final GestureDetector gestureDetector = new GestureDetector(getContext(), new SimpleGestureListener());
+        final GestureDetector gestureDetector = new GestureDetector(getContext(), new SimpleGestureListener(getContext()));
 
         view.setOnTouchListener(new View.OnTouchListener() {
             @Override
