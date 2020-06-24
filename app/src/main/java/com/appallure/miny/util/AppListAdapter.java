@@ -110,8 +110,12 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppListV
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            appsList.clear();
-            appsList.addAll((List) results.values);
+
+            if(results.values != null){
+                appsList.clear();
+                appsList.addAll((List) results.values);
+            }
+
             notifyDataSetChanged();
         }
     };

@@ -22,8 +22,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.appallure.miny.MainActivity;
 import com.appallure.miny.R;
+import com.appallure.miny.model.App;
+import com.appallure.miny.util.AppListUtil;
 import com.appallure.miny.util.SimpleGestureListener;
+
+import java.util.List;
 
 public class Home extends Fragment {
 
@@ -33,11 +38,10 @@ public class Home extends Fragment {
     String shortcut3PackageName, shortcut3AppName;
     String shortcut4PackageName, shortcut4AppName;
 
-    ImageView settingsButton;
+    ImageView settingsButton, refresh;
 
     @Override
     public void onResume() {
-        setUpShortcuts();
         determineSetDefaultLauncher();
         super.onResume();
     }
@@ -52,6 +56,8 @@ public class Home extends Fragment {
         shortcut3 = view.findViewById(R.id.shortcut3);
         shortcut4 = view.findViewById(R.id.shortcut4);
         setDefaultLauncher = view.findViewById(R.id.tv_set_default_launcher);
+        settingsButton = view.findViewById(R.id.iv_settings);
+        refresh = view.findViewById(R.id.iv_refresh);
 
         shortcut1.setOnClickListener(clickListener);
         shortcut2.setOnClickListener(clickListener);
@@ -63,12 +69,21 @@ public class Home extends Fragment {
         shortcut3.setOnLongClickListener(longClickListener);
         shortcut4.setOnLongClickListener(longClickListener);
 
-        settingsButton = view.findViewById(R.id.iv_settings);
+        setUpShortcuts();
 
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), SettingsActivity.class));
+            }
+        });
+
+        refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setUpShortcuts();
+                determineSetDefaultLauncher();
+                AppListUtil.refreshAppList(getContext());
             }
         });
 
@@ -176,6 +191,15 @@ public class Home extends Fragment {
         startActivityForResult(appPickerIntent, 2);
     }
 
+    private boolean containsApp(List<App> appList, String packageName){
+        for (App app: appList){
+            if (app.getPackageName().equals(packageName)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void setUpShortcuts(){
         SharedPreferences sharedPreferences = getContext().getSharedPreferences(getContext().getPackageName(), getContext().MODE_PRIVATE);
 
@@ -188,6 +212,35 @@ public class Home extends Fragment {
         shortcut2AppName = sharedPreferences.getString("shortcut2AppName", null);
         shortcut3AppName = sharedPreferences.getString("shortcut3AppName", null);
         shortcut4AppName = sharedPreferences.getString("shortcut4AppName", null);
+
+        List<App> appList = AppListUtil.getAppsList(getContext());
+        if(!containsApp(appList, shortcut1PackageName)){
+            sharedPreferences.edit().remove("shortcut1PackageName").apply();
+            sharedPreferences.edit().remove("shortcut1AppName").apply();
+            shortcut1AppName = null;
+            shortcut1PackageName = null;
+        }
+
+        if(!containsApp(appList, shortcut2PackageName)){
+            sharedPreferences.edit().remove("shortcut2PackageName").apply();
+            sharedPreferences.edit().remove("shortcut2AppName").apply();
+            shortcut2AppName = null;
+            shortcut2PackageName = null;
+        }
+
+        if(!containsApp(appList, shortcut3PackageName)){
+            sharedPreferences.edit().remove("shortcut3PackageName").apply();
+            sharedPreferences.edit().remove("shortcut3AppName").apply();
+            shortcut3AppName = null;
+            shortcut3PackageName = null;
+        }
+
+        if(!containsApp(appList, shortcut4PackageName)){
+            sharedPreferences.edit().remove("shortcut4PackageName").apply();
+            sharedPreferences.edit().remove("shortcut4AppName").apply();
+            shortcut4AppName = null;
+            shortcut4PackageName = null;
+        }
 
         if(shortcut1AppName != null){
             shortcut1.setText(shortcut1AppName);
@@ -210,19 +263,21 @@ public class Home extends Fragment {
         String currentLauncherName= resolveInfo.activityInfo.packageName;
         if(!currentLauncherName.equals("com.appallure.miny")){
             setDefaultLauncher.setVisibility(View.VISIBLE);
+            setDefaultLauncher.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                        final Intent intent = new Intent(Settings.ACTION_HOME_SETTINGS);
+                        startActivity(intent);
+                    }
+                    else {
+                        final Intent intent = new Intent(Settings.ACTION_SETTINGS);
+                        startActivity(intent);
+                    }
+                }
+            });
+        }else {
+            setDefaultLauncher.setVisibility(View.GONE);
         }
-        setDefaultLauncher.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                    final Intent intent = new Intent(Settings.ACTION_HOME_SETTINGS);
-                    startActivity(intent);
-                }
-                else {
-                    final Intent intent = new Intent(Settings.ACTION_SETTINGS);
-                    startActivity(intent);
-                }
-            }
-        });
     }
 }

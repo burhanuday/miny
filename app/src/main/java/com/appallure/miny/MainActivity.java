@@ -27,12 +27,6 @@ public class MainActivity extends AppCompatActivity {
     public PageChangeListener pageChangeListener;
 
     @Override
-    protected void onResume() {
-        AppListUtil.refreshAppList(this);
-        super.onResume();
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE); //will hide the title

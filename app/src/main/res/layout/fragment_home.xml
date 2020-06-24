@@ -22,6 +22,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/iv_refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:alpha="0.4"
+        android:src="@drawable/ic_baseline_refresh_24"
+        android:visibility="visible"
+        app:layout_constraintEnd_toStartOf="@+id/iv_settings"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/tv_set_default_launcher"
         android:layout_width="wrap_content"
