@@ -9,13 +9,12 @@
         android:icon="@mipmap/ic_launcher"
         android:immersive="true"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher"
         android:stateNotNeeded="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".view.SettingsActivity"
-            android:label="@string/title_activity_settings"></activity>
+            android:label="@string/title_activity_settings" />
         <activity android:name=".view.AppPicker" />
         <activity
             android:name=".MainActivity"
