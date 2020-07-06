@@ -25,6 +25,29 @@ This launcher has been inspired by the "Light Phone" and brings the functionalit
 
 <img src="design/Home.png" height="400" /> <img src="design/AppDrawer.png" height="400" />
 
+<h2 align="center">TODO</h2>
+
+- [x] 4 shortcut buttons on home select functionality
+- [x] Settings screen - HIGH
+	- [x] Set as default launcher
+	- [x] Enable accessibility service
+	- [ ] Font size
+- [x] Faster keyboard open - MID
+- [ ] Today's calendar event
+- [ ] Music control widget
+- [ ] Quote on home screen
+- [x] Go to home after launching app
+- [ ] Simplify shortcut related logic with ints instead of string
+- [x] Slight text style changes with opacity and alpha
+- [x] Double tap to sleep - HIGH
+	- [x] Show user a prompt to enable accessibility
+- [x] Listen to app installs and uninstalls - HIGH
+	- [ ] Check if shortcut app is still installed, if not clear from sharedpref
+	- [ ] Refresh all apps 
+- [x] Long click modal open in apps list to show uninstall and app info - HIGH
+	- [ ] Add a white border around the modal 
+- [ ] Custom toast notification
+
 <h2 align="center">LICENSE</h2>
 
 ```
