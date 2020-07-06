@@ -1,4 +1,4 @@
-<img src="design/fg.png" height="200" /> 
+<img align="center" src="design/fg.png" height="200" /> 
 
 <br/>
 
