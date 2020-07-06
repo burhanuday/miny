@@ -1,8 +1,11 @@
-![a decluttered launcher](design/fg.png)
+<img src="design/fg.png" height="200" /> 
+
+<br/>
 
 <h1 align="center">miny</h1>
 miny is a decluttered launcher for Android. It is aimed at reducing the craving to constantly check your phone every few minutes. It aims to be a bland but accessible launcher.
-
+<br/>
+<br/>
 This launcher has been inspired by the "Light Phone" and brings the functionality of your app launcher to a package that is small and fast. It is based on the philosophy of minimalism and aims to declutter your launcher app. miny is completely free to use
 
 <h2 align="center">Download</h2>
