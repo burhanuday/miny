@@ -32,6 +32,8 @@ This launcher has been inspired by the "Light Phone" and brings the functionalit
 	- [x] Set as default launcher
 	- [x] Enable accessibility service
 	- [ ] Font size
+	- [ ] Font family
+	- [ ] App drawer font colour
 - [x] Faster keyboard open - MID
 - [ ] Today's calendar event
 - [ ] Music control widget
