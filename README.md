@@ -10,7 +10,7 @@ This launcher has been inspired by the "Light Phone" and brings the functionalit
 
 <h2 align="center">Download</h2>
 
-[Download from the Play Store](https://play.google.com/store/apps/details?id=com.appallure.miny)
+<a href='https://play.google.com/store/apps/details?id=com.appallure.miny&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png'/></a>
 
 <h2 align="center">Features</h2>
 
@@ -28,12 +28,7 @@ This launcher has been inspired by the "Light Phone" and brings the functionalit
 <h2 align="center">TODO</h2>
 
 - [x] 4 shortcut buttons on home select functionality
-- [x] Settings screen - HIGH
-	- [x] Set as default launcher
-	- [x] Enable accessibility service
-	- [ ] Font size
-	- [ ] Font family
-	- [ ] App drawer font colour
+- [x] Settings screen - HIGH - [x] Set as default launcher - [x] Enable accessibility service - [ ] Font size - [ ] Font family - [ ] App drawer font colour
 - [x] Faster keyboard open - MID
 - [ ] Today's calendar event
 - [ ] Music control widget
@@ -41,17 +36,39 @@ This launcher has been inspired by the "Light Phone" and brings the functionalit
 - [x] Go to home after launching app
 - [ ] Simplify shortcut related logic with ints instead of string
 - [x] Slight text style changes with opacity and alpha
-- [x] Double tap to sleep - HIGH
-	- [x] Show user a prompt to enable accessibility
-- [x] Listen to app installs and uninstalls - HIGH
-	- [ ] Check if shortcut app is still installed, if not clear from sharedpref
-	- [ ] Refresh all apps 
-- [x] Long click modal open in apps list to show uninstall and app info - HIGH
-	- [ ] Add a white border around the modal 
+- [x] Double tap to sleep - HIGH - [x] Show user a prompt to enable accessibility
+- [x] Listen to app installs and uninstalls - HIGH - [ ] Check if shortcut app is still installed, if not clear from sharedpref - [ ] Refresh all apps
+- [x] Long click modal open in apps list to show uninstall and app info - HIGH - [ ] Add a white border around the modal
 - [ ] Custom toast notification
 
 <h2 align="center">LICENSE</h2>
 
 ```
-MIT
+MIT License
+
+Copyright (c) 2020 Burhanuddin Udaipurwala
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+<h2 align="center">ATTRIBUTION</h2>
+
+```
+Google Play and the Google Play logo are trademarks of Google LLC.
 ```
